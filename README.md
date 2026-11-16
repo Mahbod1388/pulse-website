@@ -27,3 +27,11 @@ For Cloudflare Pages:
 - Support: pulse.supportt@gmail.com
 - No download URL was present in the source site, so no download button or invented URL has been added.
 - Google Fonts and GSAP are loaded from external CDNs. Core layout and fallback reveal behavior still work if GSAP fails to load.
+
+
+## Downloads center
+- `/downloads/` provides the official public release listing.
+- `/downloads/releases.json` is the data source; it starts empty and must only contain verified public release URLs.
+- See `DOWNLOADS-OPERATIONS.md` for the R2/CDN publishing workflow and manifest schema.
+- `_headers` adds baseline Cloudflare Pages security headers. Review the Content Security Policy whenever external scripts, fonts, analytics, or embeds change.
+- The site remains a brand/marketing website; the downloads center is a supporting destination, not a replacement for the existing site.
