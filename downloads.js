@@ -55,8 +55,32 @@
     }
     if (!list.children.length) { status.textContent = 'NO VALID DOWNLOAD LINKS'; render([]); }
   }
-  fetch('/downloads/releases.json', { cache: 'no-cache', headers: { 'Accept': 'application/json' } })
-    .then(response => { if (!response.ok) throw new Error(`Manifest request failed: ${response.status}`); return response.json(); })
-    .then(data => { if (!data || data.schemaVersion !== 1 || !Array.isArray(data.releases)) throw new Error('Unsupported release manifest'); render(data.releases); })
-    .catch(() => { status.textContent = 'RELEASE LIST UNAVAILABLE'; const msg = node('div', 'downloads-empty'); msg.append(node('span','empty-symbol','!'), node('h3','','COULD NOT LOAD RELEASES.'), node('p','','Please try again in a moment, or contact PULSE support if the issue continues.')); list.replaceChildren(msg); });
+  async function loadReleases() {
+    status.textContent = 'CHECKING RELEASES…';
+    try {
+      const response = await fetch('/downloads/releases.json', { cache: 'no-store', headers: { 'Accept': 'application/json' } });
+      if (!response.ok) throw new Error(`Manifest request failed: ${response.status}`);
+      const data = await response.json();
+      if (!data || data.schemaVersion !== 1 || !Array.isArray(data.releases)) throw new Error('Unsupported release manifest');
+      render(data.releases);
+    } catch {
+      status.textContent = 'TEMPORARILY OUT OF REACH';
+      const msg = node('div', 'downloads-empty downloads-error');
+      msg.append(node('span','empty-symbol','↻'), node('h3','','THE SIGNAL GOT A LITTLE LOST.'), node('p','','The release list didn’t load this time. Your downloads are safe — give it another try in a moment.'));
+      const retry = node('button', 'retry-releases', 'TRY AGAIN ↗');
+      retry.type = 'button'; retry.addEventListener('click', loadReleases);
+      msg.append(retry); list.replaceChildren(msg);
+    }
+  }
+  loadReleases();
+
+  // Small entrance movement; content remains visible if motion is disabled.
+  const revealItems = document.querySelectorAll('.downloads-hero-copy, .download-orbit, .release-journey, .download-shelf, .download-trust');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    document.body.classList.add('motion-ready');
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    }), { threshold: 0.12 });
+    revealItems.forEach(item => observer.observe(item));
+  } else revealItems.forEach(item => item.classList.add('is-visible'));
 })();

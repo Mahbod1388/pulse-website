@@ -11,38 +11,63 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="downloads.css">
-  <script defer src="downloads.js"></script>
+  <link rel="preload" href="/styles.css" as="style">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/downloads/downloads.css">
+  <script defer src="/downloads/downloads.js"></script>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="/" aria-label="PULSE home"><span class="brand-mark"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
-    <nav class="desktop-nav" aria-label="Main navigation"><a href="/#manifesto">Manifesto</a><a href="/#experience">Experience</a><a href="/#release">Release</a><a href="/downloads/" aria-current="page">Downloads</a></nav>
-    <a class="header-cta" href="/">BACK TO PULSE <span>↗</span></a>
+    <a class="brand" href="../index.html" aria-label="PULSE home"><span class="brand-mark"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
+    <nav class="desktop-nav" aria-label="Main navigation"><a href="../index.html#manifesto">Manifesto</a><a href="../index.html#experience">Experience</a><a href="../index.html#release">Release</a><a href="./" aria-current="page">Downloads</a></nav>
+    <a class="header-cta" href="../index.html">BACK TO PULSE <span>↗</span></a>
     <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
   </header>
   <main class="downloads-main">
     <div class="downloads-topline"><span><i class="live-dot"></i> OFFICIAL PULSE FILES</span><span>TRUSTED RELEASES / 001</span></div>
     <section class="downloads-hero">
-      <p class="eyebrow">THE OFFICIAL DOWNLOAD CENTER</p>
-      <h1>GET THE<br><em>GOOD STUFF.</em></h1>
-      <p class="downloads-lead">Official PULSE releases, updates and resources — published here when they are ready.</p>
+      <div class="downloads-hero-copy">
+        <p class="eyebrow"><span class="eyebrow-spark">✳</span> THE OFFICIAL DOWNLOAD CENTER</p>
+        <h1>GOOD THINGS<br><em>TAKE A PULSE.</em></h1>
+        <p class="downloads-lead">The right files. The real releases. One little home for everything PULSE puts out into the world. We’ll keep it ready for you.</p>
+        <a class="hero-home-link" href="../index.html"><span>BACK TO THE PULSE EXPERIENCE</span><b>↗</b></a>
+      </div>
+      <div class="download-orbit" aria-hidden="true">
+        <div class="download-orbit-ring ring-a"></div><div class="download-orbit-ring ring-b"></div><div class="download-orbit-ring ring-c"></div>
+        <div class="download-orbit-core"><span class="orbit-pulse">P</span><span class="orbit-caption">READY WHEN YOU ARE</span></div>
+        <span class="orbit-tag orbit-tag-top">P / 001</span><span class="orbit-tag orbit-tag-bottom">THE NEXT DROP</span>
+      </div>
+    </section>
+    <section class="release-journey" aria-label="How downloads are prepared">
+      <div class="journey-intro"><span class="section-index">A LITTLE CARE IN EVERY FILE</span><p>Before a file lands here, it gets the PULSE treatment.</p></div>
+      <div class="journey-steps">
+        <article><span>01</span><b>PREPARE</b><small>Put the release together.</small></article>
+        <article><span>02</span><b>CHECK</b><small>Verify the file and its details.</small></article>
+        <article><span>03</span><b>SHARE</b><small>Make it yours, safely.</small></article>
+      </div>
     </section>
     <section class="release-list" aria-labelledby="release-list-title">
       <div class="downloads-section-head"><div><span class="section-index">01 / RELEASES</span><h2 id="release-list-title">AVAILABLE FILES</h2></div><span class="manifest-status" id="manifest-status">CHECKING RELEASES…</span></div>
-      <div id="release-list" class="release-cards" aria-live="polite"><div class="downloads-empty"><span class="empty-symbol">↧</span><h3>THE FIRST DROP IS LOADING.</h3><p>Checking the official release list…</p></div></div>
+      <div id="release-list" class="release-cards" aria-live="polite"><div class="downloads-empty"><span class="empty-symbol">↧</span><h3>A LITTLE SOMETHING IS ON ITS WAY.</h3><p>Checking the official release list…</p></div></div>
+    </section>
+    <section class="download-shelf" aria-label="What belongs here">
+      <div class="shelf-heading"><span class="section-index">02 / MORE THAN AN INSTALLER</span><h2>YOUR PULSE.<br><em>YOUR TOOLKIT.</em></h2></div>
+      <div class="shelf-items">
+        <article><span class="shelf-icon">↗</span><div><b>OFFICIAL RELEASES</b><p>The latest stable builds, straight from the source.</p></div></article>
+        <article><span class="shelf-icon">✳</span><div><b>UPDATES & EXTRAS</b><p>Useful additions that make the experience even better.</p></div></article>
+        <article><span class="shelf-icon">⌁</span><div><b>PREVIOUS VERSIONS</b><p>Release history and details, kept easy to find.</p></div></article>
+      </div>
     </section>
     <section class="download-trust">
-      <div><span class="section-index">02 / DOWNLOAD SAFETY</span><h2>ONLY THE<br><em>OFFICIAL SIGNAL.</em></h2></div>
-      <div class="trust-copy"><p>Files listed here are published through PULSE’s official release manifest. Each release can include a SHA-256 checksum so you can verify that your download matches the published file.</p><p>Always download PULSE from this page or another link explicitly published by the official PULSE team.</p></div>
+      <div><span class="section-index">03 / DOWNLOAD SAFETY</span><h2>GOOD FILES.<br><em>NO GUESSWORK.</em></h2></div>
+      <div class="trust-copy"><p>Every public file belongs to an official PULSE release. Where available, a SHA-256 fingerprint lets you check that the file you received is exactly the one we published.</p><p>Take the official route. If something doesn’t look right, don’t run it — reach out to PULSE support and we’ll help you sort it out.</p></div>
     </section>
   </main>
   <footer class="footer">
-    <a class="brand footer-brand" href="/"><span class="brand-mark"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
+    <a class="brand footer-brand" href="../index.html"><span class="brand-mark"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
     <span class="footer-tagline">YOUR SOUND. YOUR SPACE. YOUR PULSE.</span>
-    <div class="footer-links"><a href="/">HOME ↗</a><a href="mailto:pulse.supportt@gmail.com">SUPPORT ↗</a></div>
+    <div class="footer-links"><a href="../index.html">HOME ↗</a><a href="mailto:pulse.supportt@gmail.com">SUPPORT ↗</a></div>
     <small>© <span id="year"></span> PULSE. ALL RIGHTS RESERVED.</small>
   </footer>
 </body>
