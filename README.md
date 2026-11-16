@@ -1,23 +1,24 @@
-# PULSE Website — starter
+# PULSE Website — Launch Edition
 
-Static HTML/CSS/JS landing page for the PULSE desktop music player.
+Static landing page for the PULSE desktop music player.
 
 ## Files
-- `index.html` — page content
-- `styles.css` — responsive design and animations
-- `script.js` — reveal-on-scroll, animated waveform and mobile navigation
+- `index.html` — content, launch date, Instagram and support links
+- `styles.css` — responsive visual design and motion
+- `script.js` — scroll reveals, animated visualizer, mobile menu and countdown
 
-## Deploy on Cloudflare Pages
-- Framework preset: `None`
+## Cloudflare Pages
+- Framework preset: None
 - Build command: leave empty
 - Build output directory: `.`
-- Root directory: `/` (default)
+- Production branch: `main`
 
-## Before public launch
-1. Replace the demo player artwork with real PULSE screenshots/logo.
-2. Add the actual release download URL in the Download section.
-3. Confirm all advertised features match the shipped app.
-4. Test the site from Iranian and international networks.
-5. Keep `prefers-reduced-motion` support in place.
+## Launch configuration
+The countdown currently targets November 22, 2026 at 00:00 in each visitor's local time.
+If the actual launch time is different, update `launchAt` in `script.js`.
 
-Support email currently set to: pulse.supportt@gmail.com
+## Before release
+- Replace conceptual visual elements with real PULSE screenshots where available.
+- Add the final Windows installer/download URL and release notes.
+- Test the site on mobile, desktop, and networks in Iran and internationally.
+- Confirm the release date/time before launch.

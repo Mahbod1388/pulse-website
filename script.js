@@ -1,12 +1,13 @@
-const bars = document.querySelector(".waveform");
+const bars = document.querySelector(".bars");
 if (bars) {
-  for (let i = 0; i < 43; i++) {
+  for (let i = 0; i < 45; i++) {
     const bar = document.createElement("i");
-    bar.style.setProperty("--h", `${12 + Math.random() * 88}%`);
-    bar.style.setProperty("--d", `${Math.random() * -.9}s`);
+    bar.style.setProperty("--h", `${18 + Math.random() * 82}%`);
+    bar.style.setProperty("--delay", `${Math.random() * -1}s`);
     bars.appendChild(bar);
   }
 }
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -27,15 +28,26 @@ nav?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => 
   nav.classList.remove("open");
   menuButton?.setAttribute("aria-expanded", "false");
 }));
+
 document.querySelector("#year").textContent = new Date().getFullYear();
 
-document.querySelectorAll(".magnetic").forEach(el => {
-  el.addEventListener("pointermove", e => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left - r.width / 2) * .08;
-    const y = (e.clientY - r.top - r.height / 2) * .12;
-    el.style.transform = `translate(${x}px, ${y}px)`;
-  });
-  el.addEventListener("pointerleave", () => el.style.transform = "");
-});
+// Launch date: November 22, 2026. Uses the visitor's local clock.
+const launchAt = new Date(2026, 10, 22, 0, 0, 0).getTime();
+const pad = value => String(value).padStart(2, "0");
+function updateCountdown() {
+  const remaining = Math.max(0, launchAt - Date.now());
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+  document.querySelector("#days").textContent = pad(days);
+  document.querySelector("#hours").textContent = pad(hours);
+  document.querySelector("#minutes").textContent = pad(minutes);
+  document.querySelector("#seconds").textContent = pad(seconds);
+  if (remaining <= 0) {
+    document.querySelector(".launch-pill").innerHTML = "<i></i> RELEASE DAY IS HERE";
+    document.querySelector(".release-status").textContent = "CHECK BACK FOR THE DOWNLOAD";
+  }
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
