@@ -1,24 +1,29 @@
-# PULSE Website — Launch Edition
+# PULSE — Visual Redesign
 
-Static landing page for the PULSE desktop music player.
+A redesigned static landing page for the PULSE desktop music player.
+
+## Design direction
+- Dark graphite canvas, high-contrast acid-lime identity and oversized kinetic typography.
+- A custom abstract hero object and a conceptual desktop-player interface.
+- Scroll reveals, GSAP/ScrollTrigger enhancement, CSS motion, ambient pointer glow and a looping brand ticker.
+- Responsive layouts for desktop, tablet and mobile, plus `prefers-reduced-motion` support.
+- Native scrolling is preserved; no scroll hijacking or forced horizontal scrolling.
 
 ## Files
-- `index.html` — content, launch date, Instagram and support links
-- `styles.css` — responsive visual design and motion
-- `script.js` — scroll reveals, animated visualizer, mobile menu and countdown
+- `index.html` — page structure, metadata, launch date, Instagram and support links
+- `styles.css` — full visual system and responsive layouts
+- `script.js` — motion, mobile navigation, visualizer details and countdown
 
-## Cloudflare Pages
+## Deployment
+For Cloudflare Pages:
 - Framework preset: None
 - Build command: leave empty
 - Build output directory: `.`
-- Production branch: `main`
 
-## Launch configuration
-The countdown currently targets November 22, 2026 at 00:00 in each visitor's local time.
-If the actual launch time is different, update `launchAt` in `script.js`.
-
-## Before release
-- Replace conceptual visual elements with real PULSE screenshots where available.
-- Add the final Windows installer/download URL and release notes.
-- Test the site on mobile, desktop, and networks in Iran and internationally.
-- Confirm the release date/time before launch.
+## Important content notes
+- The product window is a concept visualization, not a screenshot of the final application.
+- The countdown targets November 22, 2026 at 00:00 in each visitor's local time.
+- Instagram: https://www.instagram.com/pulse_officialy/
+- Support: pulse.supportt@gmail.com
+- No download URL was present in the source site, so no download button or invented URL has been added.
+- Google Fonts and GSAP are loaded from external CDNs. Core layout and fallback reveal behavior still work if GSAP fails to load.
