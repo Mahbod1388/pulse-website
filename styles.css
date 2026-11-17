@@ -63,15 +63,3 @@ a{color:inherit;text-decoration:none}button{font:inherit}::selection{background:
 }
 @media(max-width:370px){.header-cta{font-size:6px;padding:10px 7px}.hero-title{font-size:17vw}.hero-footer span:first-child{max-width:95px}.hero-footer span:last-child{max-width:80px;text-align:right}.app-window{grid-template-columns:68px 1fr}.app-sidebar{padding-inline:5px}.app-main{padding-inline:7px}.track-name{min-width:43px}.player-time{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.cursor-glow{display:none}}
-
-
-/* Download-center invitation */
-.download-invite{padding-top:30px;padding-bottom:120px}
-.download-invite-inner{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;padding:65px 0 0}
-.download-invite-inner h2{font:700 clamp(48px,7vw,96px)/.9 var(--display);letter-spacing:-.085em;margin:14px 0 20px}
-.download-invite-inner h2 em{font-style:normal;color:var(--acid)}
-.download-invite-copy{max-width:470px;color:#aeb2a6;font-size:13px;line-height:1.9;margin:0}
-.download-invite-link{display:flex;align-items:center;gap:40px;padding:18px 20px;border:1px solid #d7ff4570;color:var(--paper);font:9px var(--mono);letter-spacing:1px;white-space:nowrap;transition:background .25s,color .25s}
-.download-invite-link b{font-size:17px;color:var(--acid)}
-.download-invite-link:hover{background:var(--acid);color:var(--ink)}.download-invite-link:hover b{color:var(--ink)}
-@media(max-width:650px){.download-invite{padding:15px 21px 85px}.download-invite-inner{display:block;padding-top:42px}.download-invite-inner h2{font-size:clamp(45px,12vw,72px)}.download-invite-copy{font-size:11px}.download-invite-link{margin-top:28px;justify-content:space-between;width:100%;font-size:8px}}

@@ -1,37 +1,30 @@
-# PULSE — Visual Redesign
+# PULSE — Official website
 
-A redesigned static landing page for the PULSE desktop music player.
+A marketing and product-discovery website for the PULSE desktop application. This is **not** a browser music player.
 
-## Design direction
-- Dark graphite canvas, high-contrast acid-lime identity and oversized kinetic typography.
-- A custom abstract hero object and a conceptual desktop-player interface.
-- Scroll reveals, GSAP/ScrollTrigger enhancement, CSS motion, ambient pointer glow and a looping brand ticker.
-- Responsive layouts for desktop, tablet and mobile, plus `prefers-reduced-motion` support.
-- Native scrolling is preserved; no scroll hijacking or forced horizontal scrolling.
+## File map (intentionally separated)
 
-## Files
-- `index.html` — page structure, metadata, launch date, Instagram and support links
-- `styles.css` — full visual system and responsive layouts
-- `script.js` — motion, mobile navigation, visualizer details and countdown
+- `index.html` — main homepage only.
+- `assets/css/home.css` — homepage styles.
+- `assets/js/home.js` — homepage interactions and launch countdown.
+- `downloads/index-download.html` — Download Center page (named explicitly to avoid confusion with the homepage).
+- `downloads/download-center.css` — Download Center styles.
+- `downloads/download-center.js` — Download Center behavior.
+- `downloads/releases.json` — release feed. Add real approved release records here when files are ready.
 
-## Deployment
-For Cloudflare Pages:
-- Framework preset: None
-- Build command: leave empty
-- Build output directory: `.`
+All Download Center assets use absolute `/downloads/...` paths, and its Home links return to `/index.html`. The root homepage does not load Download Center CSS or JavaScript.
 
-## Important content notes
-- The product window is a concept visualization, not a screenshot of the final application.
-- The countdown targets November 22, 2026 at 00:00 in each visitor's local time.
-- Instagram: https://www.instagram.com/pulse_officialy/
-- Support: pulse.supportt@gmail.com
-- No download URL was present in the source site, so no download button or invented URL has been added.
-- Google Fonts and GSAP are loaded from external CDNs. Core layout and fallback reveal behavior still work if GSAP fails to load.
+## Publishing releases
 
+Add a release object to `downloads/releases.json` only after the real file is available. Suggested fields: `name`, `version`, `platform`, `size`, `date`, `channel`, `notes`, `url`, `sha256`. Never publish placeholder files or invented checksums. Current desktop source identifies the application version as `2.44.12`; the download feed intentionally remains empty until a distributable installer is provided.
 
-## Downloads center
-- `/downloads/` provides the official public release listing.
-- `/downloads/releases.json` is the data source; it starts empty and must only contain verified public release URLs.
-- See `DOWNLOADS-OPERATIONS.md` for the R2/CDN publishing workflow and manifest schema.
-- `_headers` adds baseline Cloudflare Pages security headers. Review the Content Security Policy whenever external scripts, fonts, analytics, or embeds change.
-- The site remains a brand/marketing website; the downloads center is a supporting destination, not a replacement for the existing site.
+## Design and interaction
+
+- Dark graphite and acid-lime PULSE identity, editorial typography and abstract motion artwork.
+- Animated orbital hero, scroll progress, reveal transitions, moving marquees, hover tilt and magnetic links.
+- Responsive mobile navigation and reduced-motion support.
+- The artwork is abstract brand artwork, not represented as an authentic application screenshot.
+
+## Hosting
+
+Static site; no build step. Deploy the repository root as the output directory. Ensure the host serves root-relative paths and `downloads/releases.json` as JSON.
