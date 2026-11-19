@@ -1,4 +1,4 @@
-# PULSE — Landing page (v4)
+# PULSE — Landing page (v4.1)
 
 The same page and the same design as v3 — dark graphite canvas, acid-lime identity, oversized kinetic type —
 hardened, made faster and filled with a **real screenshot of the application** instead of a drawing.
@@ -21,10 +21,36 @@ hardened, made faster and filled with a **real screenshot of the application** i
 
 ## Files
 - `index.html`, `styles.css`, `script.js`, `boot.js` — the page (`boot.js` is 1 line: marks the page as JS-enabled)
+- `stores-styles.css`, `tools/stores-link.mjs`, `tools/stores-hosts.mjs` — the "Get it" section (Steam + Microsoft Store)
 - `assets/img/` — real screenshot, content-hashed names (safe to cache forever); `assets/noise.png` — texture tile
 - `_headers` — Cloudflare Pages response headers · `robots.txt`, `sitemap.xml`, `.well-known/security.txt`, `site.webmanifest`, `404.html`
 - `PLAN.md` — the plan I worked from, with measured before/after numbers
 - `tools/check.mjs` — regression gate · `tools/serve.mjs` — local server that applies `_headers`
+
+
+## Get it: Steam + Microsoft Store (section 04, `#get`)
+PULSE ships through two stores, so there is no direct-download page. The section has two cards that read **COMING SOON** and are not clickable
+until you give each one its store address. Nothing else on the page needs to change.
+
+**Easiest (recommended):**
+```
+node tools/stores-link.mjs steam     https://store.steampowered.com/app/123456/PULSE/
+node tools/stores-link.mjs microsoft https://apps.microsoft.com/detail/XXXXXXXXXXXX
+node tools/stores-link.mjs show                    # what is live right now
+node tools/stores-link.mjs clear steam             # back to COMING SOON
+node tools/check.mjs
+```
+The tool accepts only `https://` addresses on the store's own domains (Steam: `store.steampowered.com`, `s.team` · Microsoft: `apps.microsoft.com`,
+`www.microsoft.com`, `microsoft.com`, `aka.ms`) and always writes `target="_blank" rel="noopener noreferrer"`.
+
+**By hand:** open `index.html`, find `data-store="steam"` / `data-store="microsoft"` and add three attributes to that `<a>`:
+`href="<store page address>" target="_blank" rel="noopener noreferrer"`. `check.mjs` verifies what you typed.
+
+Official Steam / Microsoft badges and logos are **not** used (both companies publish brand rules for them). Add them when the store pages are live.
+
+## File naming
+Files that belong to one section carry its name: `stores-styles.css`, `stores-link.mjs`, `stores-hosts.mjs`.
+Shared files keep generic names (`index.html`, `styles.css`, `script.js`, `boot.js`). `check.mjs` enforces both rules.
 
 ## Deployment (Cloudflare Pages) — unchanged
 - Framework preset: None · Build command: empty · Build output directory: `.`
@@ -41,7 +67,7 @@ node tools/serve.mjs 8788     # then open http://localhost:8788 — served WITH 
 - **Fonts are still loaded from Google** to keep your typography exactly. To reach zero third-party requests: download the three families
   (OFL licence) into `assets/fonts/`, add `@font-face` rules, delete the 3 Google `<link>` tags and remove `fonts.googleapis.com` / `fonts.gstatic.com`
   from `style-src` / `font-src` in `_headers`.
-- No download URL exists yet, so there is no download button (nothing invented). Add it when the file exists.
+- No store address exists yet, so both store cards say COMING SOON (nothing invented). The footer says "GET IT" and the release text points to the store section.
 - Support address is used exactly as given: `pulse.supportt@gmail.com` (double "t") — please confirm it is intended.
 - Canonical / OG / sitemap use `https://pulse-website-d0n.pages.dev/`. If you move to a custom domain, change those four places.
 - Instagram: https://www.instagram.com/pulse_officialy/

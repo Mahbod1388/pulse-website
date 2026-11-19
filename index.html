@@ -28,8 +28,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <script src="boot.js"></script>
-  <link rel="stylesheet" href="styles.css?v=4.0.0">
-  <script defer src="script.js?v=4.0.0"></script>
+  <link rel="stylesheet" href="styles.css?v=4.1.0">
+  <link rel="stylesheet" href="stores-styles.css?v=4.1.0">
+  <script defer src="script.js?v=4.1.0"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"PULSE","url":"https://pulse-website-d0n.pages.dev/"},{"@type":"SoftwareApplication","name":"PULSE","applicationCategory":"MultimediaApplication","operatingSystem":"Windows","description":"A desktop music player with vibe colors, synced lyrics, Cinema mode, playlists and a parametric equalizer.","image":"https://pulse-website-d0n.pages.dev/og-image.png"}]}</script>
 </head>
 <body>
@@ -39,7 +40,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="PULSE home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
     <nav class="desktop-nav" id="site-nav" aria-label="Main navigation">
-      <a href="#manifesto">Manifesto</a><a href="#experience">Experience</a><a href="#release">Release</a>
+      <a href="#manifesto">Manifesto</a><a href="#experience">Experience</a><a href="#release">Release</a><a href="#get">Get it</a>
     </nav>
     <a class="header-cta" href="https://www.instagram.com/pulse_officialy/" target="_blank" rel="noopener noreferrer">FOLLOW THE SIGNAL <span aria-hidden="true">↗</span></a>
     <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav"><span></span><span></span></button>
@@ -115,7 +116,7 @@
         <div class="section-kicker reveal"><span>03 / THE RELEASE</span><span>THE FIRST CHAPTER</span></div>
         <div class="release-label reveal"><i class="live-dot" aria-hidden="true"></i> <span id="release-label-text">OFFICIAL LAUNCH — NOVEMBER 22, 2026</span></div>
         <h2 class="release-title reveal">THE WAIT<br>IS <em>ALMOST</em><br>OVER<span>.</span></h2>
-        <p class="release-copy reveal">The first release of PULSE is getting closer. Follow the official page for previews, launch news and the download announcement.</p>
+        <p class="release-copy reveal">The first release of PULSE is getting closer. Follow the official page for previews, launch news and where to get it.</p>
         <div class="countdown reveal" id="countdown" role="timer" aria-label="Countdown to PULSE launch" data-launch="2026-11-22T00:00:00">
           <div class="count-unit"><strong id="days">--</strong><span>DAYS</span></div><i aria-hidden="true">:</i><div class="count-unit"><strong id="hours">--</strong><span>HOURS</span></div><i aria-hidden="true">:</i><div class="count-unit"><strong id="minutes">--</strong><span>MINUTES</span></div><i aria-hidden="true">:</i><div class="count-unit"><strong id="seconds">--</strong><span>SECONDS</span></div>
         </div>
@@ -125,6 +126,31 @@
         </div>
       </div>
       <div class="release-side">22 / 11 / 2026<br><span>MARK THE MOMENT</span></div>
+    </section>
+
+    <section class="get section-pad" id="get">
+      <div class="section-kicker reveal"><span>04 / GET PULSE</span><span>TWO WAYS IN</span></div>
+      <div class="get-head">
+        <h2 class="get-title reveal">TWO WAYS<br>TO <span>GET IT.</span></h2>
+        <p class="get-copy reveal">PULSE is coming to Steam and the Microsoft Store. Each button turns into a link the moment its store page goes live.</p>
+      </div>
+      <!-- TO TURN A STORE ON: give its <a> three attributes: href (the store page address), target="_blank" and rel="noopener noreferrer"
+           Easiest and safest:  node tools/stores-link.mjs steam <address>   or   node tools/stores-link.mjs microsoft <address>
+           Without an href the card shows "COMING SOON" and is not clickable. -->
+      <div class="stores">
+        <a class="store reveal" data-store="steam">
+          <span class="store-k">01 — STEAM</span>
+          <strong class="store-name">Steam</strong>
+          <span class="store-note">Install and update through Steam.</span>
+          <span class="store-state"><span class="store-soon"><i class="live-dot" aria-hidden="true"></i>COMING SOON</span><span class="store-live">GET IT ON STEAM <b aria-hidden="true">↗</b></span></span>
+        </a>
+        <a class="store reveal" data-store="microsoft">
+          <span class="store-k">02 — MICROSOFT STORE</span>
+          <strong class="store-name">Microsoft<br>Store</strong>
+          <span class="store-note">Install and update through the Microsoft Store.</span>
+          <span class="store-state"><span class="store-soon"><i class="live-dot" aria-hidden="true"></i>COMING SOON</span><span class="store-live">GET IT FROM MICROSOFT STORE <b aria-hidden="true">↗</b></span></span>
+        </a>
+      </div>
     </section>
 
     <section class="social-strip">
@@ -137,7 +163,7 @@
   <footer class="footer">
     <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>PULSE<span class="brand-reg">®</span></span></a>
     <span class="footer-tagline">YOUR SOUND. YOUR SPACE. YOUR PULSE.</span>
-    <div class="footer-links"><a href="https://www.instagram.com/pulse_officialy/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a><a href="mailto:pulse.supportt@gmail.com">SUPPORT ↗</a></div>
+    <div class="footer-links"><a href="#get">GET IT</a><a href="https://www.instagram.com/pulse_officialy/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a><a href="mailto:pulse.supportt@gmail.com">SUPPORT ↗</a></div>
     <small>© <span id="year">2026</span> PULSE. ALL RIGHTS RESERVED.</small>
     <p class="footer-note">No cookies and no analytics. Screenshots show PULSE 2.44.9 with a demo library of original artwork.</p>
   </footer>

@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { STORES, ALL_STORE_HOSTS, checkStoreUrl } from './stores-hosts.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = f => fs.readFileSync(path.join(root, f), 'utf8');
@@ -11,15 +12,16 @@ let fails = 0;
 const ok = (c, msg) => { if (!c) { fails++; console.log('  FAIL  ' + msg); } else console.log('  ok    ' + msg); };
 
 const pages = ['index.html', '404.html'];
+const fileFor = u => { const p = u.split('?')[0].split('#')[0]; return p === '/' || p === '' ? 'index.html' : p.replace(/^\//, ''); };
 const css = read('styles.css');
-const allowedHosts = ['www.instagram.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'pulse-website-d0n.pages.dev', 'schema.org', 'www.w3.org', 'www.sitemaps.org'];
+const allowedHosts = ['www.instagram.com', 'fonts.googleapis.com', 'fonts.gstatic.com', 'pulse-website-d0n.pages.dev', 'schema.org', 'www.w3.org', 'www.sitemaps.org', ...ALL_STORE_HOSTS];
 
 for (const page of pages) {
   console.log('\n' + page);
   const h = read(page);
   // local references exist
   const refs = [...h.matchAll(/(?:href|src)="([^"]+)"/g)].map(m => m[1]).filter(u => !/^(https?:|mailto:|data:|#)/.test(u));
-  const missing = refs.map(u => u.split('?')[0].split('#')[0]).filter(u => u && !exists(u.replace(/^\//, '')));
+  const missing = refs.filter(u => u.split('#')[0] !== '' && !exists(fileFor(u)));
   ok(missing.length === 0, `all ${refs.length} local references exist` + (missing.length ? ' — missing: ' + missing.join(', ') : ''));
   // anchors & aria-controls
   const ids = new Set([...h.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]));
@@ -48,6 +50,7 @@ try { JSON.parse(idx.match(/application\/ld\+json">([\s\S]*?)<\/script>/)[1]); o
 ok((idx.match(/<h1\b/g) || []).length === 1, 'exactly one <h1>');
 ok(/class="skip-link"/.test(idx), 'skip link present');
 ok(!/gsap|cdnjs/.test(idx), 'no CDN scripts');
+ok(/href="#get"/.test(idx) && /id="get"/.test(idx), 'main page links to the "Get it" section');
 
 console.log('\nstyles.css');
 const small = [...css.matchAll(/font(?:-size)?:\s*(?:\d{3}\s+)?(\d+(?:\.\d+)?)px/g)].filter(m => Number(m[1]) < 11);
@@ -76,6 +79,27 @@ const shown = [...idx.matchAll(/assets\/img\/([^"\s,]+)/g)].map(m => m[1]);
 const imgKB = [...new Set(shown)].reduce((a, f) => a + kb('assets/img/' + f), 0);
 ok(imgKB < 400, `page images (all srcset candidates) = ${imgKB.toFixed(0)} KB (budget 400 KB)`);
 ok(kb('assets/noise.png') < 16, `noise tile = ${kb('assets/noise.png').toFixed(1)} KB`);
+
+
+console.log('\nstores section (Steam + Microsoft Store)');
+// naming: files that belong to the section carry its name; shared files stay generic and free of section code
+const EXPECT_ROOT = ['stores-styles.css'], EXPECT_TOOLS = ['stores-hosts.mjs', 'stores-link.mjs'];
+const foundRoot = fs.readdirSync(root).filter(f => f.startsWith('stores')), foundTools = fs.readdirSync(path.join(root, 'tools')).filter(f => f.startsWith('stores'));
+ok(JSON.stringify(foundRoot.sort()) === JSON.stringify(EXPECT_ROOT), 'section files are exactly: ' + EXPECT_ROOT.join(', '));
+ok(JSON.stringify(foundTools.sort()) === JSON.stringify(EXPECT_TOOLS), 'section tools are exactly: ' + EXPECT_TOOLS.join(', '));
+ok(/href="stores-styles\.css\?v=[^"]+"/.test(idx), 'index.html loads stores-styles.css');
+ok(!/\.store[-\s{.\[:]/.test(css) && !/data-store/.test(read('script.js')), 'shared styles.css / script.js contain no store-section code');
+for (const key of Object.keys(STORES)) {
+  const tag = (idx.match(new RegExp(`<a\\b[^>]*\\bdata-store="${key}"[^>]*>`)) || [])[0];
+  ok(!!tag, `${STORES[key].label} button exists`);
+  if (!tag) continue;
+  const href = (tag.match(/\shref="([^"]*)"/) || [])[1];
+  if (!href) { console.log(`  INFO  ${STORES[key].label}: no link yet → card shows "COMING SOON"`); continue; }
+  const r = checkStoreUrl(key, href.replace(/&amp;/g, '&'));
+  ok(!r.error, `${STORES[key].label} link is valid` + (r.error ? ': ' + r.error : ''));
+  if (r.warning) console.log('  WARN  ' + STORES[key].label + ': ' + r.warning);
+  ok(/\starget="_blank"/.test(tag) && /\srel="[^"]*noopener[^"]*noreferrer/.test(tag), `${STORES[key].label} link opens safely (target=_blank + rel=noopener noreferrer)`);
+}
 
 console.log(fails ? `\n${fails} check(s) FAILED` : '\nOK — all checks passed');
 process.exit(fails ? 1 : 0);

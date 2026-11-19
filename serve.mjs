@@ -18,11 +18,22 @@ function rules() {
   }
   return out;
 }
+function redirects() {   // only 200 rewrites are supported here, which is all this site uses
+  const out = new Map();
+  if (!fs.existsSync(path.join(root, '_redirects'))) return out;
+  for (const line of fs.readFileSync(path.join(root, '_redirects'), 'utf8').split(/\r?\n/)) {
+    const t = line.trim(); if (!t || t.startsWith('#')) continue;
+    const [from, to, status] = t.split(/\s+/); if (status === '200') out.set(from, to);
+  }
+  return out;
+}
+const RW = redirects();
 const re = p => new RegExp('^' + p.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$');
 const R = rules().map(r => ({ ...r, re: re(r.pattern) }));
 
 http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  const rewrite = RW.get(p); if (rewrite) p = rewrite;
   if (p.endsWith('/')) p += 'index.html';
   const file = path.join(root, p);
   const send = (code, body, type, urlPath) => {

@@ -1,0 +1,32 @@
+/* "Get it" section (Steam + Microsoft Store) only. Shared tokens, type and layout come from styles.css. */
+.get{padding-top:40px}
+.get-head{display:flex;justify-content:space-between;align-items:flex-end;gap:35px;padding:65px 0 44px}
+.get-title{font:700 clamp(54px,7.4vw,106px)/.88 var(--display);letter-spacing:-.07em;margin:0;text-transform:uppercase}
+.get-title span{color:var(--acid)}
+.get-copy{max-width:360px;color:#b3b7aa;font-size:15px;line-height:1.75;margin:0 2% 5px 0}
+
+.stores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.store{position:relative;display:flex;flex-direction:column;min-height:340px;padding:28px 30px;border:1px dashed #f0f1e93d;background:#0d0f0b;overflow:hidden;color:var(--paper);text-decoration:none;transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .3s,box-shadow .4s}
+.store:before{content:"";position:absolute;right:-25%;bottom:-55%;width:75%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d7ff4514,transparent 68%);pointer-events:none}
+.store-k{margin-bottom:28px;font:11px var(--mono);letter-spacing:1.3px;color:#8d9285}
+.store-name{margin-top:auto;font:700 clamp(40px,4.8vw,70px)/.9 var(--display);letter-spacing:-.06em;text-transform:uppercase;transition:color .3s}
+.store-note{margin-top:12px;font-size:14px;line-height:1.6;color:#a3a79b}
+.store-state{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font:500 12px var(--mono);letter-spacing:1px}
+.store-soon{display:inline-flex;align-items:center;color:#a3a79b}
+.store-live{display:none;align-items:center;justify-content:space-between;color:var(--acid)}
+.store-live b{font-size:17px;font-weight:400;margin-left:14px}
+
+/* the only thing that switches a store on is an href on its <a> */
+.store[href]{border-style:solid;border-color:#d7ff4570;cursor:pointer}
+.store[href] .store-soon{display:none}
+.store[href] .store-live{display:flex}
+.store[href]:hover{transform:translateY(-5px);border-color:var(--acid);box-shadow:0 22px 60px #d7ff4518}
+.store[href]:hover .store-name{color:var(--acid)}
+
+@media(max-width:900px){.get-head{display:block;padding:48px 0 32px}.get-copy{margin:25px 0 0;max-width:420px}}
+@media(max-width:650px){
+  .get{padding-top:20px}
+  .get-title{font-size:clamp(54px,15vw,88px)}
+  .stores{grid-template-columns:minmax(0,1fr)}
+  .store{min-height:250px;padding:22px}
+}

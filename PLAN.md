@@ -47,6 +47,16 @@ broken or missing. Anything that made the page look or behave like an app was re
 **Innovation (kept small and un-app-like)**
 - ✔ "Add launch day to calendar" — builds an `.ics` locally (CRLF, all-day, reminder the evening before). Verified by downloading it in the test.
 
+## 2b. Added after the plan changed: stores, not downloads
+The product ships on **Steam** and the **Microsoft Store**, so a self-hosted download page would have been wrong. I built one first (release
+manifest, SHA-256 tool, state machine, browser tests), then **deleted all of it** — a store handles installs, updates and integrity.
+What exists instead is small on purpose:
+- ✔ Section 04 "Get it": two cards, COMING SOON until each gets an `href`; with `href` they become real links. No JavaScript involved, so it also works with JS off and is crawlable.
+- ✔ `tools/stores-link.mjs`: one command per store; refuses non-https, wrong domain, credentials; always writes `target=_blank rel="noopener noreferrer"`.
+- ✔ Tested in a browser in both states: no CSP violations, Tab skips cards without a link and reaches both once linked, visible focus ring, opens in a new tab, no `window.opener`, no overflow at 320 / 390 / 768 / 1440 px, and `check.mjs` catches a hand-edited bad link.
+- ✔ Naming rule applied: `stores-styles.css`, `tools/stores-link.mjs`, `tools/stores-hosts.mjs` (enforced by `check.mjs`).
+- Not done on purpose: official Steam / Microsoft logos and badges (brand rules apply — add them once the pages are live), structured-data `installUrl` (no address yet).
+
 ## 3. Deliberately not done
 - Song/vibe picker, feature gallery, specs strip, new typefaces — they turned the site into a player/app showcase.
 - Self-hosting your three fonts — I have no network and not the files; README has the exact 4-step recipe.
@@ -54,7 +64,7 @@ broken or missing. Anything that made the page look or behave like an app was re
 - Analytics, cookies, forms — each would break the "no cookies, no analytics" line now in the footer.
 
 ## 4. Needs you
-1. Download link / store page (none exists → no download button).
+1. The two store addresses (Steam page, Microsoft Store page) — then run the two commands in README.
 2. Support e-mail `pulse.supportt@gmail.com` (double "t") — intended?
 3. Final domain (canonical, OG, sitemap use `pulse-website-d0n.pages.dev`).
 4. Screenshot shows **PULSE 2.44.9** — retake if the shipped build differs.
